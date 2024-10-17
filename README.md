@@ -25,11 +25,11 @@ The **Platform IP/CIDR API** allows customers to retrieve IP and CIDR informatio
 
 ## API Documentation
 
-The API is built using OpenAPI 3.0. For complete API documentation, including available endpoints and request/response formats, refer to the `api.yaml` file in the repository.
+The API is built using OpenAPI 3.0. For complete API documentation, including available endpoints and request/response formats, refer to the `api-spec.yaml` file in the repository.
 
 ### Base URL
 
-https://api.platform.com/v2
+https://api.example.com/v2
 
 
 
@@ -72,7 +72,7 @@ npm start
 To retrieve IP/CIDR data for all products and features in the US data boundary in CSV format:
 
 ```http
-GET https://api.platform.com/v2/ip-cidr?dataBoundary=US&format=csv
+GET https://api.example.com/v2/ip-cidr?dataBoundary=US&format=csv
 ```
 
 ### Example 1 Response (CSV Format)
@@ -86,7 +86,7 @@ AnotherProduct,DataSync,US,198.51.100.0/16,8080,inbound,"Data synchronization se
 Retrieve Outbound IPs for a Specific Feature in YAML Format
 
 ```http
-GET https://api.platform.com/v2/ip-cidr?feature=AuditLogs&dataBoundary=APAC&direction=outbound&format=yaml
+GET https://api.example.com/v2/ip-cidr?feature=AuditLogs&dataBoundary=APAC&direction=outbound&format=yaml
 ```
 ### Example 2 Response (YAML Format)
 ```yaml
@@ -112,7 +112,7 @@ data:
 Retrieve IP/CIDR Data for All Products in US Data Boundary in IPTables Format
 
 ```http
-GET https://api.platform.com/v2/ip-cidr?dataBoundary=US&format=iptables
+GET https://api.example.com/v2/ip-cidr?dataBoundary=US&format=iptables
 ```
 ### Example 3 Response (IPTables Format)
 ```plaintext
@@ -133,7 +133,7 @@ GET https://api.platform.com/v2/ip-cidr?dataBoundary=US&format=iptables
 Retrieve IP/CIDR Data in JSON with Pagination for the US Data Boundary
 
 ```http
-GET https://api.platform.com/v2/ip-cidr?dataBoundary=US&page=2&pageSize=1&format=json
+GET https://api.example.com/v2/ip-cidr?dataBoundary=US&page=2&pageSize=1&format=json
 
 ```
 ### Example 4 Response (JSON Format)
