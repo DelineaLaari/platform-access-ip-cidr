@@ -109,7 +109,7 @@ data:
 ```
 
 ### Example 3 Request
-Retrieve Outbound IPs for a Specific Feature in YAML Format
+Retrieve IP/CIDR Data for All Products in US Data Boundary in IPTables Format
 
 ```http
 GET https://api.platform.com/v2/ip-cidr?dataBoundary=US&format=iptables
@@ -128,6 +128,41 @@ GET https://api.platform.com/v2/ip-cidr?dataBoundary=US&format=iptables
 ```
 
 
+
+### Example 4 Request
+Retrieve IP/CIDR Data in JSON with Pagination for the US Data Boundary
+
+```http
+GET https://api.platform.com/v2/ip-cidr?dataBoundary=US&page=2&pageSize=1&format=json
+
+```
+### Example 4 Response (JSON Format)
+
+```json
+{
+  "version": "v2.0",
+  "page": 2,
+  "pageSize": 1,
+  "totalItems": 3,
+  "totalPages": 3,
+  "lastUpdated": "2024-10-16T12:00:00Z",
+  "data": [
+    {
+      "product": "ThirdProduct",
+      "feature": "AuditLogs",
+      "dataBoundary": "US",
+      "ipRanges": [
+        {
+          "ip": "192.0.2.0/24",
+          "direction": "inbound",
+          "ports": [80],
+          "description": "Audit logging service HTTP access"
+        }
+      ]
+    }
+  ]
+}
+```
 
 
 
