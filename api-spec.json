@@ -1,0 +1,190 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Platform IP/CIDR API",
+    "version": "v2.0",
+    "description": "API that allows customers to retrieve IP/CIDR for platform access restrictions at different levels, with support for multiple output formats including NGINX, Apache, Text, IPTables, JSON, CSV, YAML, TOML, XML, Terraform, Ansible, AWS Security Group, Cisco ACL, and PAN-OS."
+  },
+  "servers": [
+    {
+      "url": "https://api.platform.com/v2"
+    }
+  ],
+  "paths": {
+    "/ip-cidr": {
+      "get": {
+        "summary": "Retrieve IP/CIDR data",
+        "description": "Allows customers to retrieve IP/CIDR for platform access by product, feature, or data boundary with flexible output formats.",
+        "parameters": [
+          {
+            "name": "product",
+            "in": "query",
+            "description": "The name of the product for which to retrieve IP/CIDR.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "feature",
+            "in": "query",
+            "description": "The feature of the product for which to retrieve IP/CIDR.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataBoundary",
+            "in": "query",
+            "description": "The data boundary (region) for which to retrieve IP/CIDR.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["US", "EU", "APAC", "LATAM", "GLOBAL"]
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "The direction of traffic (inbound or outbound) for which to retrieve IP/CIDR.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["inbound", "outbound"]
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The output format for the IP/CIDR data. Supports various formats.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["json", "nginx", "apache", "iptables", "text", "csv", "yaml", "toml", "xml", "terraform", "ansible", "aws_security_group", "cisco_acl", "panos"]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of results per page.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with IP/CIDR data in the requested format.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IpCidrResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Invalid parameters."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IpCidrResponse": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "The version of the IP/CIDR data."
+          },
+          "page": {
+            "type": "integer",
+            "description": "Current page number."
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Number of results per page."
+          },
+          "totalItems": {
+            "type": "integer",
+            "description": "Total number of IP/CIDR entries."
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages."
+          },
+          "lastUpdated": {
+            "type": "string",
+            "description": "The last modified date for the IP/CIDR data.",
+            "format": "date-time"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "product": {
+                  "type": "string",
+                  "description": "The product name."
+                },
+                "feature": {
+                  "type": "string",
+                  "description": "The feature name."
+                },
+                "dataBoundary": {
+                  "type": "string",
+                  "description": "The data boundary (region)."
+                },
+                "ipRanges": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ip": {
+                        "type": "string",
+                        "description": "The IP/CIDR range."
+                      },
+                      "direction": {
+                        "type": "string",
+                        "description": "Traffic direction (inbound or outbound)."
+                      },
+                      "ports": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        },
+                        "description": "The ports to be opened."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "A description of the IP/CIDR range and its use case."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
