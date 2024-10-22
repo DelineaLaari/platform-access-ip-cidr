@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.platform.com/v2"
+      "url": "https://localhost:3000/v2"
     }
   ],
   "paths": {
