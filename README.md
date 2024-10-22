@@ -27,11 +27,6 @@ The **Platform IP/CIDR API** allows customers to retrieve IP and CIDR informatio
 
 The API is built using OpenAPI 3.0. For complete API documentation, including available endpoints and request/response formats, refer to the `api-spec.yaml` file in the repository.
 
-### Base URL
-
-https://api.example.com/v2
-
-
 
 ## Getting Started
 
